@@ -1,0 +1,29 @@
+# Datatypes (KEYWORD1)
+
+LCDTeleType     KEYWORD1
+
+# Methods and Functions (KEYWORD2)
+
+begin           KEYWORD2
+end             KEYWORD2
+getVersion      KEYWORD2
+clear           KEYWORD2
+redraw          KEYWORD2
+home            KEYWORD2
+prompt          KEYWORD2
+write           KEYWORD2
+backspace       KEYWORD2
+newLine         KEYWORD2
+carriageReturn  KEYWORD2
+bell            KEYWORD2
+
+# Instances (KEYWORD2)
+
+# Constants (LITERAL1)
+
+CMD_HOME                LITERAL1
+CMD_BELL                LITERAL1
+CMD_BACKSPACE           LITERAL1
+CMD_CLEAR               LITERAL1
+CMD_NEWLINE             LITERAL1
+CMD_CARRIAGE_RETURN     LITERAL1
