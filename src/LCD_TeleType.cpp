@@ -1,3 +1,10 @@
+/*
+ * LCD_TeleType
+ * A library to use I2C LCD displays as a simple teletype.
+ *
+ * Copyright (C) 2025 Francesco P. Sileno. All rights reserved.
+ */
+
 #include "LCD_TeleType.h"
 
 /*

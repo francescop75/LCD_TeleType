@@ -1,3 +1,10 @@
+/*
+ * LCD_TeleType
+ * A library to use I2C LCD displays as a simple teletype.
+ *
+ * Copyright (C) 2025 Francesco P. Sileno. All rights reserved.
+ */
+
 #ifndef LCDTELETYPE_H
 #define LCDTELETYPE_H
 
@@ -5,7 +12,7 @@
 #include <LiquidCrystal_I2C.h>
 #include <Wire.h>
 
-#define VERSION "1.0.0-beta"
+#define VERSION "1.0.1-beta"
 
 /*
  * Implemented backslash sequences:
