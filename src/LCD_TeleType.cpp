@@ -6,21 +6,20 @@
  */
 
 #include "LCD_TeleType.h"
-#include <stdlib.h>
 
 /*
  * Contructor.
  */
-LCDTeleType::LCDTeleType(byte lcd_address, unsigned int lcd_rows,
-                         unsigned int lcd_columns, byte bell_delay = 15,
-                         byte bell_repetitions = 35) {
+LCDTeleType::LCDTeleType(unsigned char lcd_address, unsigned int lcd_rows,
+                         unsigned int lcd_columns, unsigned char bell_delay,
+                         unsigned char bell_repetitions) {
 
   // I2C Screen parameters.
-  _lcd_address = (byte)lcd_address;
+  _lcd_address = (unsigned char)lcd_address;
   _lcd_rows = (unsigned int)lcd_rows;
   _lcd_columns = (unsigned int)lcd_columns;
-  _bell_delay = (byte)bell_delay;
-  _bell_repetitions = (byte)bell_repetitions;
+  _bell_delay = (unsigned char)bell_delay;
+  _bell_repetitions = (unsigned char)bell_repetitions;
   _backlight = 1;
 
   _buffer = (char *)malloc(_lcd_rows * _lcd_columns); // Screen buffer.
@@ -46,7 +45,7 @@ void LCDTeleType::end() { free(_buffer); }
 /*
  * Return library version.
  */
-char *LCDTeleType::getVersion() { return VERSION; }
+char *LCDTeleType::getVersion() { return (char *)VERSION; }
 
 /*
  * Clear screen, reset cursor position.
@@ -87,9 +86,9 @@ void LCDTeleType::home() {
  * Output library version and a READY prompt.
  */
 void LCDTeleType::prompt() {
-  write("v");
+  write((char *)"v");
   write(getVersion());
-  write(" READY\n");
+  write((char *)" READY\n");
   bell();
 }
 
@@ -210,7 +209,7 @@ void LCDTeleType::bell() {
   }
 }
 
-void LCDTeleType::backlight(byte status) {
+void LCDTeleType::backlight(unsigned char status) {
 
   if (status) {
 

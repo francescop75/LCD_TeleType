@@ -42,7 +42,7 @@
 class LCDTeleType {
 
 private:
-  byte _lcd_address, _bell_delay, _bell_repetitions, _backlight;
+  unsigned char _lcd_address, _bell_delay, _bell_repetitions, _backlight;
   unsigned int _lcd_rows, _lcd_columns;
   LiquidCrystal_I2C *_lcd;
 
@@ -56,11 +56,12 @@ private:
 
 public:
   LCDTeleType(
-      byte lcd_address,            // LCD display I2C address.
-      unsigned int lcd_rows,       // LCD display rows.
-      unsigned int lcd_columns,    // LCD display columns.
-      byte bell_delay = 15,        // Bell simulation - flash interval.
-      byte bell_repetitions = 35); // Bell simulation - flash repetitions.
+      unsigned char lcd_address,     // LCD display I2C address.
+      unsigned int lcd_rows,         // LCD display rows.
+      unsigned int lcd_columns,      // LCD display columns.
+      unsigned char bell_delay = 15, // Bell simulation - flash interval.
+      unsigned char bell_repetitions =
+          35); // Bell simulation - flash repetitions.
 
   void begin();
   void end();
@@ -79,7 +80,7 @@ public:
   void newLine();
   void carriageReturn();
   void bell();
-  void backlight(byte status);
+  void backlight(unsigned char status);
 };
 
 #endif
