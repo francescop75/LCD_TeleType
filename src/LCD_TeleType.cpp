@@ -6,20 +6,25 @@
  */
 
 #include "LCD_TeleType.h"
+#include <stdlib.h>
 
 /*
  * Contructor.
  */
 LCDTeleType::LCDTeleType(byte lcd_address, unsigned int lcd_rows,
-                         unsigned int lcd_columns) {
+                         unsigned int lcd_columns, byte bell_delay = 15,
+                         byte bell_repetitions = 35) {
 
   // I2C Screen parameters.
-  _lcd_address = (byte)lcd_address;         // I2C LCD screen address.
-  _lcd_rows = (unsigned int)lcd_rows;       // LCD screen rows.
-  _lcd_columns = (unsigned int)lcd_columns; // LCD screen columns.
+  _lcd_address = (byte)lcd_address;
+  _lcd_rows = (unsigned int)lcd_rows;
+  _lcd_columns = (unsigned int)lcd_columns;
+  _bell_delay = (byte)bell_delay;
+  _bell_repetitions = (byte)bell_repetitions;
+  _backlight = 1;
 
-  _buffer = (unsigned char *)malloc(_lcd_rows * _lcd_columns); // Screen buffer.
-  _pos_x = _pos_y = 0; // Screen cursor position.
+  _buffer = (char *)malloc(_lcd_rows * _lcd_columns); // Screen buffer.
+  _pos_x = _pos_y = 0;                                // Screen cursor position.
 
   _lcd = new LiquidCrystal_I2C(_lcd_address, _lcd_columns, _lcd_rows);
 }
@@ -120,6 +125,14 @@ void LCDTeleType::write(char c) {
     carriageReturn();
     break;
 
+  case CMD_BACKLIGHT_OFF:
+    backlight(0);
+    break;
+
+  case CMD_BACKLIGHT_ON:
+    backlight(1);
+    break;
+
   default:
     _buffer[_offset(_pos_y, _pos_x)] = c;
     _lcd->print(c);
@@ -182,12 +195,32 @@ void LCDTeleType::carriageReturn() {
  */
 void LCDTeleType::bell() {
 
-  for (unsigned int x = 0; x < BELL_REPEATS; x++) {
+  for (unsigned int x = 0; x < _bell_repetitions; x++) {
 
     _lcd->noBacklight();
-    delay(BELL_DELAY);
+    delay(_bell_delay);
     _lcd->backlight();
-    delay(BELL_DELAY);
+    delay(_bell_delay);
+
+    if (_backlight) {
+      _lcd->backlight();
+    } else {
+      _lcd->noBacklight();
+    }
+  }
+}
+
+void LCDTeleType::backlight(byte status) {
+
+  if (status) {
+
+    _backlight = 1;
+    _lcd->backlight();
+
+  } else {
+
+    _backlight = 0;
+    _lcd->noBacklight();
   }
 }
 

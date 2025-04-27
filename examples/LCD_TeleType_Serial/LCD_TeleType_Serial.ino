@@ -1,14 +1,24 @@
-/*
+/**
  * Whatever come in on the onboard USB serial, is forwarded to the LCD display.
  */
- 
+
 #include <LCD_TeleType.h>
 
-#define SERIAL_SPEED 2400
-#define SERIAL_TIMEOUT 200
+#define SERIAL_SPEED 300
+#define SERIAL_TIMEOUT 250
 
-//              I²C Address, Display rows, Display columns
-LCDTeleType lcd(0x27,        4,            20);
+// LCDTeleType lcd(0x27, // LCD display I2C address.
+//                 4,    // LCD display rows.
+//                 20,   // LCD display columns.
+//                 15,   // Bell simulation - flash interval.
+//                 35    // Bell simulation - flash repetitions.
+// );
+LCDTeleType lcd(0x27, // LCD display I2C address.
+                2,    // LCD display rows.
+                40,   // LCD display columns.
+                25,   // Bell simulation - flash interval.
+                35    // Bell simulation - flash repetitions.
+);
 
 void setup() {
 

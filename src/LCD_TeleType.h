@@ -1,4 +1,4 @@
-/*
+/**
  * LCD_TeleType
  * A library to use I2C LCD displays as a simple teletype.
  *
@@ -12,7 +12,7 @@
 #include <LiquidCrystal_I2C.h>
 #include <Wire.h>
 
-#define VERSION "1.0.1-beta"
+#define VERSION "1.0.2-beta"
 
 /*
  * Implemented backslash sequences:
@@ -29,16 +29,20 @@
 #define CMD_NEWLINE '\n'
 // Carriage return only, go to the beginning of the current line.
 #define CMD_CARRIAGE_RETURN '\r'
+// Switch back light off.
+#define CMD_BACKLIGHT_OFF 0x0e
+// Switch back light on.
+#define CMD_BACKLIGHT_ON 0x0f
 
 // Interval between retroillumination on and off.
-#define BELL_DELAY 15
+// #define BELL_DELAY 15
 // How many times to repeat the flash.
-#define BELL_REPEATS 35
+// #define bell_repetitions 35
 
 class LCDTeleType {
 
 private:
-  byte _lcd_address;
+  byte _lcd_address, _bell_delay, _bell_repetitions, _backlight;
   unsigned int _lcd_rows, _lcd_columns;
   LiquidCrystal_I2C *_lcd;
 
@@ -51,8 +55,12 @@ private:
   void _advanceRow(unsigned int r);
 
 public:
-  LCDTeleType(byte lcd_address, unsigned int lcd_rows,
-              unsigned int lcd_columns);
+  LCDTeleType(
+      byte lcd_address,            // LCD display I2C address.
+      unsigned int lcd_rows,       // LCD display rows.
+      unsigned int lcd_columns,    // LCD display columns.
+      byte bell_delay = 15,        // Bell simulation - flash interval.
+      byte bell_repetitions = 35); // Bell simulation - flash repetitions.
 
   void begin();
   void end();
@@ -71,6 +79,7 @@ public:
   void newLine();
   void carriageReturn();
   void bell();
+  void backlight(byte status);
 };
 
 #endif
