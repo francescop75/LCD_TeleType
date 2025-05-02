@@ -1,0 +1,2 @@
+# You need your arduino board USB Vendor ID and Product ID.
+ACTION=="add", ATTRS{idVendor}=="<VENDOR_ID>", ATTRS{idProduct}=="<PRODUCT_ID>", SYMLINK+="ttyLCD"
