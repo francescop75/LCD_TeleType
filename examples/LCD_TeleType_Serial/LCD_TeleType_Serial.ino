@@ -27,6 +27,7 @@ void setup() {
 
   while (!Serial) {
     // Not really necessary with onboard USB serial, but who knows...
+    delay(500);
   }
 
   lcd.begin();
