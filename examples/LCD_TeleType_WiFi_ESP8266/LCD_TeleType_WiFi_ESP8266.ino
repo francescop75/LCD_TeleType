@@ -1,5 +1,5 @@
 /**
- * Whatever come in on the onboard USB serial, is forwarded to the LCD display.
+ * Whatever come in on the UDP port, is forwarded to the LCD display.
  */
 
 #include <ESP8266WiFi.h>
